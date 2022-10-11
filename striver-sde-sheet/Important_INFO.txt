@@ -1,0 +1,63 @@
+Striver 
+
+Day 4:
+Question 1: 2 Sum: brute force is O(N^2) take all the possible pairs and fill the vector.
+Optimal Approach O(N): take st=0 & end=n-1
+sort the array.
+now while(st<end) if cur element is target then return.
+	if(nums[st]<nums[end]) st++;
+	else end--;
+As moving from right to left decreases the elem value & vice versa.
+Question 2:  4 Sum:  Brute force is O(N^4).
+Optimal approach is O(N^3).
+sort the array.
+do 2 loops and the innermost third loop will do the 2sum
+	Here for getting the unique solution: the moment we insert an ans vector in the solution we will do st++; end--;  until the nums[st] and nums[end] is same as the current one.
+https://leetcode.com/problems/longest-consecutive-sequence/
+done by self
+
+https://leetcode.com/problems/reverse-nodes-in-k-group/
+Can be done storing k elem in stack at a time.
+But will be O(n) space
+
+
+Striver day 7: done except 4th question
+question 1: https://leetcode.com/problems/rotate-list/submissions/
+Approach 1: take vector store values take another vector where ith of old vector is (n+k)%n of the other,  then make a new linked list and then return it.
+Time: O(N). space: O(N)
+approach 2: Brute-force: make the last node point to head k times.
+Time: O(N*K): As each time we make last node point to the head we have to iterate k times. space: O(1)
+Approach 3:I used approach  of reversing first n-k elements (Which we learnt in Day 6 que. 3) then reversing last k elements, then reversing the whole linked list. 
+This approach was used in 3rd approach here: https://leetcode.com/problems/rotate-array/discuss/54277/Summary-of-C%2B%2B-solutions
+Time: O(N), Space: O(1)
+Approach 4:Actual  easy approach is that we can point the last element to the head and then make the (n-k )th element point to null and return the (n-k+1)th element.
+Time: O(N),Space: O(1)
+
+Question2:Clone a Linked List with random and next pointer
+My lame Approach 1: took each new nodes in vector and mapped the old nodes with the index in a map um and random pointers mapped with um[cur->rand]. so we will get location of each and every nodes along with the random.
+Time: O(N), space: O(N)
+Approach 2: Make a map <old_node,new_node> , Now iterate from head, connect whole the values's next pointer, for random pointer do 
+new->random=um[old->random].
+Time: O(N), space: O(N)
+Approach 3: make the current linked list in such a way that each node have it's new node in the next position: 1->1' ->2->2'->3->3' now 
+cur->next->random=cur->random->next (if random is not null). than break the 2 linked list again into original form.
+Time: O(N), space: O(1)
+
+Question 5: Remove duplicate from sorted array.
+Space O(N): 
+	A):  If we prefer set time will be O(NlogN).
+	B): Pigeonhole problem: we have max size up to 100 so we can take array and assign the frequency now at the end we only have to take each element single time.
+Space O(1): 2 Pointer approach
+	assign Ind1 pointer to new elements and iterate through other elements by ind2 pointer whenever nums[ind2] != prev than we will assign 
+	nums[ind1]=nums[ind2] and will change the prev = nums[ind2].
+
+Day 8: Greedy algorithm
+	Question 1: N meetings in one room: at one time only single meeting can be arrange, find max meetings that can be arranged in one day.
+		sort the intervals w.r.t end time so that we can take maximum meets, now if cur_start_time< end_time we can't take else if cur_start_time>end_time we will take this interval[i] ' s end_time for next checks.
+		Time: O(NlogN), space: O(N)
+	Question 2: Minimum Platforms
+		sort arrival, sort depart; now take 2 pointers ind1,ind2; if arriv[ind1]<=depart[ind2]: platform++; if (arrive[ind1]>depart[ind2]) platform--; update maxi accordingly;
+		Time: O(NlogN), space: O(1)
+	Question 3: Fractional Knapsack
+		sort w.r.t value/weight. Now iterate through the array and take the possible amount of weight (weight min(given_w,weight[i])) and do ans+=(val[i]/weight[i])* selected_weight; Decrease the given_w at each iteration.
+		Time: O(NlogN), space: O(1)
